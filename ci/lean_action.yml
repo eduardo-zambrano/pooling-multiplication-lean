@@ -1,0 +1,34 @@
+name: Lean CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Build with pinned Lean and mathlib
+        uses: leanprover/lean-action@v1
+      - name: Reject proof placeholders and project axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R -nE '(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)' \
+              --include='*.lean' PoolingMultiplication PoolingMultiplication.lean; then
+            echo 'Proof placeholder found.' >&2
+            exit 1
+          fi
+          if grep -R -nE '^[[:space:]]*(axiom|opaque)[[:space:]]' \
+              --include='*.lean' PoolingMultiplication PoolingMultiplication.lean; then
+            echo 'Project axiom or opaque declaration found.' >&2
+            exit 1
+          fi
+      - name: Audit trusted dependencies of every project declaration
+        run: lake env lean PoolingMultiplication/AxiomAudit.lean

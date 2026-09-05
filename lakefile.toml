@@ -1,0 +1,15 @@
+name = "poolingMultiplication"
+version = "1.0.0"
+defaultTargets = ["PoolingMultiplication"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "f897ebcf72cd16f89ab4577d0c826cd14afaafc7"
+
+[[lean_lib]]
+name = "PoolingMultiplication"

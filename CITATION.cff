@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: >-
+  If you use this formalization, please cite the repository at the commit
+  you used and the accompanying manuscript.
+title: "Multiplication from two pooling principles: Lean 4 formalization"
+type: software
+authors:
+  - family-names: Zambrano
+    given-names: Eduardo
+    email: ezambran@calpoly.edu
+    orcid: "https://orcid.org/0000-0002-5991-9105"
+    affiliation: "California Polytechnic State University, San Luis Obispo"
+version: 1.0.0
+repository-code: https://github.com/eduardo-zambrano/pooling-multiplication-lean
+url: https://github.com/eduardo-zambrano/pooling-multiplication-lean
+license: Apache-2.0
+keywords:
+  - Lean 4
+  - formal verification
+  - functional inequalities
+  - multiplication
+  - ordered semigroups
+  - unique factorization
+references:
+  - type: unpublished
+    title: "Multiplication from two pooling principles"
+    authors:
+      - family-names: Zambrano
+        given-names: Eduardo
+    year: 2026
