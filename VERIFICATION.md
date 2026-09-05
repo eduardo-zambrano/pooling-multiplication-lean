@@ -41,12 +41,12 @@ part of the committed dependency specification, and no other manuscript's
 Lean source is imported. On another machine, `lake exe cache get` obtains
 the matching library cache before `lake build` checks this project.
 
-The optional workflow template at `ci/lean_action.yml` is configured for an
-independent Linux build with the pinned toolchain and dependencies, source
-placeholder checks, and the same dependency audit. It is not installed as
-an active GitHub workflow in this version. An account with workflow-upload
-permission can activate it by placing it in `.github/workflows/`.
-No successful remote CI run is claimed by this record.
+The workflow at `.github/workflows/lean_action.yml` performs an independent
+Linux build with the pinned toolchain and dependencies, source placeholder
+checks, and the same dependency audit. It was activated on September 6,
+2026 (in the tagged v1.0.0 sources it existed only as the uninstalled
+template `ci/lean_action.yml`). Remote run outcomes are recorded on the
+repository's Actions page; this file claims only the local results above.
 
 ## Scope
 

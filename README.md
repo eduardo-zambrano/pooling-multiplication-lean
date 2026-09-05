@@ -157,12 +157,12 @@ trust extensions.
 The completed local build and audit are recorded in
 [`VERIFICATION.md`](VERIFICATION.md).
 
-An optional GitHub Actions workflow is supplied at
-[`ci/lean_action.yml`](ci/lean_action.yml). Automated CI is **not yet active**:
-an account authorized to install workflows must place this file at
-`.github/workflows/lean_action.yml`. It rebuilds the project, rejects source
-placeholders and project axioms, and runs the same dependency audit. The
-local verification does not depend on GitHub Actions.
+Automated CI is installed at
+[`.github/workflows/lean_action.yml`](.github/workflows/lean_action.yml).
+On every push and pull request it rebuilds the project with the pinned
+toolchain and dependencies, rejects source placeholders and project axioms,
+and runs the same dependency audit. The local verification does not depend
+on GitHub Actions.
 
 ## Citation and license
 
