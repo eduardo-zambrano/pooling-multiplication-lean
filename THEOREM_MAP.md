@@ -1,7 +1,7 @@
 # Manuscript-to-Lean theorem map
 
 Reference: Eduardo Zambrano, **Multiplication from two pooling principles**,
-September 5, 2026 base manuscript, `pooling_and_multiplication.tex`.
+September 8, 2026 focused revision, `pooling_and_multiplication.tex`.
 Numbering below is the manuscript's numbering, not declaration order.
 
 Every Lean name below is in the namespace `PoolingMultiplication`.
@@ -62,6 +62,8 @@ manuscript's optional detour through floor inequalities for arbitrary real
 | Lemma 3.2, (3.4): PS iff threshold subadditivity | `RowSub`, `ps_iff_rowSub` | Exactly `op a (b+c) ≤ op a b + op a c`. |
 | Lemma 3.2, (3.5): PI iff threshold lower bound | `RowSuper`, `pi_iff_rowSuper` | Written without subtraction: `op a b + op a c ≤ op a (b+c) + 1`. |
 | (3.6), equivalence with one-sided distributive defect | `pooling_iff_row_defect` in Supplement | Both inequalities are retained. This avoids the erroneous interpretation of a negative defect as truncated natural subtraction. |
+| Remark 3.3, a real slope with `θ*b ≤ op a b ≤ θ*b+1` | `row_pinning` in [RowBounds](PoolingMultiplication/RowBounds.lean) | The slope is an infimum of positive-index row ratios. Common-multiple comparisons prove the band directly; the formal proof need not invoke the cited Fekete limiting argument. |
+| Remark 3.3, normalization `a−1 ≤ θ ≤ a` | `normalized_row_pinning` | Right identity supplies the normalized bounds. No compatibility or monotonicity assumption is needed for this threshold-level observation. |
 
 The choices of first unaffordable capacities and requests in the proofs
 are implemented inside `pi_iff_count_subadd_one` and `pi_iff_rowSuper`.
@@ -89,6 +91,25 @@ They are not additional axioms.
 `Nat.divisors.card` is the independent ordinary divisor count; it is not
 defined through `pairCount`. Both partner positions may contain `1`.
 The factorization count is restricted to positive `n`, as in the paper.
+
+### Proposition 4.3: pooling with the factor roles exchanged
+
+File: [Mixed.lean](PoolingMultiplication/Mixed.lean).
+
+| Manuscript claim | Lean declarations and translation |
+|---|---|
+| Exchanged factor roles | `transpose op a b = op b a` |
+| Two-sided identity and strict order in both arguments | `RightIdentity`, `LeftIdentity`, `RowStrict`, `ColumnStrict` |
+| `M̃_b(N) = #{a ≥ 1 : op a b ≤ N}` | `count (transpose op) b N`, using the genuine full feasible set |
+| Proposition 4.3: PS for rows and PI for transposed rows iff multiplication | `mixed_pooling_characterization` |
+| Displayed row subadditivity and column one-unit superadditivity | `RowSub op`, `ColumnSuper op`; the latter is `RowSuper (transpose op)` |
+| Threshold implication requires no monotonicity or algebraic compatibility | `mixed_threshold_rigidity`, with only right identity, left identity, row subadditivity and column one-unit superadditivity |
+| Converse and invariance of multiplication under transposition | `transpose_isMultiplication`, with `rows_of_multiplication` and the existing counting/threshold equivalences |
+
+The counting characterization retains **both strict-order assumptions**.
+The order-free statement is a theorem about threshold inequalities, not a
+claim that unordered cardinalities determine individual products. No
+arbitrary-defect or weaker-order generalization is included in this release.
 
 ## Section 5: every independence and structural example
 

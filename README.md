@@ -75,9 +75,20 @@ The rigidity core is separated from the counting bridge in
 [`Rigidity.lean`](PoolingMultiplication/Rigidity.lean), so it can also be
 used as a theorem about families of almost-additive integer-valued rows.
 
+The September 8 revision adds two focused complements:
+
+- **Individual rows:** a classical one-unit linear bound, with an
+  unspecified slope in `[a − 1, a]`. This is an auxiliary observation,
+  not a limit axiom or an assertion that arbitrary rounding works.
+- **Exchanged factor roles:** with two-sided identity and strict order in
+  both arguments, PS for `M_a` and PI for
+  `M̃_b(N) = #{a ≥ 1 : a ⋆ b ≤ N}` identify multiplication without
+  assuming commutativity or associativity. The separate threshold theorem
+  needs no monotonicity; the counting theorem retains both order assumptions.
+
 ## Coverage and manuscript correspondence
 
-The reference manuscript is the September 5, 2026 base version. The
+The reference manuscript is the September 8, 2026 focused revision. The
 development covers its main characterization, auxiliary equivalences and
 bounds, arithmetic consequences, and all five independence/structural
 examples. A declaration-level map is maintained in
@@ -88,9 +99,11 @@ examples. A declaration-level map is maintained in
 | Genuine partner counts, finiteness, threshold inversion | `Counting` |
 | Lemma 3.1: counting inequalities, carry, row-output intervals | `Counting`, `Supplement` |
 | Lemma 3.2: the two threshold inequalities | `Counting` |
+| Remark 3.3: individual-row bounds and normalized slopes | `RowBounds` |
 | Lemma 4.1: initial bounds and replication | `Rigidity` |
 | Theorem 2.1: commutative and associative characterizations | `Main` |
 | Corollary 4.2: factoriality, floor count, divisor count | `Arithmetic`, `Consequences` |
+| Proposition 4.3: mixed-argument counting characterization | `Mixed` |
 | Example 5.1: Peano operation, PS without PI | `Examples.Peano` |
 | Example 5.2: odd-integer operation, PI without PS | `Examples.Odd` |
 | Example 5.3: ceiling rows without compatibility | `Examples.Ceiling` |
@@ -174,5 +187,7 @@ Copyright 2026 Eduardo Zambrano. Code is released under the
 [Apache License 2.0](LICENSE). The manuscript and editorial correspondence
 are maintained separately and are not licensed by this repository.
 
-OpenAI's Codex assisted with formalization and documentation. Proof
+OpenAI's Codex assisted with formalization and documentation. The manuscript
+revision also incorporates review and proof-exploration suggestions from
+Anthropic's Claude. Proof
 acceptance is by Lean's kernel, not by an AI-generated correctness claim.

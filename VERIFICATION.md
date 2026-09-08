@@ -1,5 +1,35 @@
 # Verification record
 
+## Local verification - September 8, 2026 (v1.1.0)
+
+The focused revision adds `RowBounds.lean` and `Mixed.lean`, keeping the
+original characterization and all examples. The toolchain and mathlib
+revision below are unchanged.
+
+Commands completed successfully:
+
+```sh
+lake build
+lake env lean PoolingMultiplication/AxiomAudit.lean
+```
+
+Final build: **7,366 successful jobs**, including cached library targets.
+The fresh audit after rebuilding the public import root reported:
+
+```text
+Audited 319 project declarations: only propext, Classical.choice, Quot.sound.
+```
+
+The imported namespace audit covers both added modules. The individual-row
+band is proved by common multiples and an infimum; the manuscript's cited
+Fekete argument is not silently treated as a project axiom. The mixed
+counting theorem retains strict order in both arguments, while its separate
+threshold theorem does not require order. See the updated theorem map.
+
+The previous 306-declaration audit below is retained as the v1.0.0 record,
+not as the audit count for this release. Neither count means a number of
+independent theorems.
+
 ## Local verification — September 6, 2026
 
 Toolchain: `leanprover/lean4:v4.24.0`.

@@ -10,7 +10,8 @@ authors:
     email: ezambran@calpoly.edu
     orcid: "https://orcid.org/0000-0002-5991-9105"
     affiliation: "California Polytechnic State University, San Luis Obispo"
-version: 1.0.0
+version: 1.1.0
+date-released: 2026-09-08
 repository-code: https://github.com/eduardo-zambrano/pooling-multiplication-lean
 url: https://github.com/eduardo-zambrano/pooling-multiplication-lean
 license: Apache-2.0

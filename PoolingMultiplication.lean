@@ -2,6 +2,8 @@ import PoolingMultiplication.Basic
 import PoolingMultiplication.Counting
 import PoolingMultiplication.Factorial
 import PoolingMultiplication.Rigidity
+import PoolingMultiplication.RowBounds
+import PoolingMultiplication.Mixed
 import PoolingMultiplication.Main
 import PoolingMultiplication.Arithmetic
 import PoolingMultiplication.Consequences
