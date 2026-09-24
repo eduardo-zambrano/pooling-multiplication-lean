@@ -1,9 +1,7 @@
 # Multiplication from two pooling principles — Lean 4
 
 Formal verification companion to **“Multiplication from two pooling
-principles”** by Eduardo Zambrano. The development uses Lean **4.24.0** and
-mathlib commit `f897ebcf72cd16f89ab4577d0c826cd14afaafc7`; all transitive
-dependency versions are pinned in [`lake-manifest.json`](lake-manifest.json).
+principles”** by Eduardo Zambrano.
 
 ## The question
 
@@ -15,7 +13,12 @@ $$
 M_a(N)=\\#\lbrace j\geq1:a\star j\leq N\rbrace.
 $$
 
-Two principles describe what happens when thresholds are pooled:
+Under strict row order, different indices give distinct ⋆-multiples, so
+this is also the number of ⋆-multiples not exceeding `N`.
+
+Two principles describe what happens when thresholds are pooled. Here
+`N,L` are nonnegative integer thresholds, and `b,c` are positive integer
+target counts:
 
 - **Sufficiency is preserved (PS).** If `N` contains at least `b`
   ⋆-multiples of `a` and `L` contains at least `c`, then `N + L` contains
@@ -24,9 +27,10 @@ Two principles describe what happens when thresholds are pooled:
   ⋆-multiples of `a` and `L` contains fewer than `c`, then `N + L`
   contains fewer than `b + c`.
 
-These axioms prescribe neither a multiplication table nor a target count.
-They concern numbers of ⋆-multiples below a threshold, not prime
-factorizations or a set-theoretic union of the sets of ⋆-multiples.
+These axioms prescribe neither a multiplication table nor a target
+counting frequency. They concern numbers of ⋆-multiples not exceeding a
+threshold, not prime factorizations or a set-theoretic union of the sets
+of ⋆-multiples.
 
 ## The theorem
 
@@ -59,9 +63,9 @@ additional mathematical assumption. See the translation notes below.
 
 ## Why the proof works
 
-Strict order makes counts invertible: `M_a(N) ≥ b` exactly when the
-`b`-th ⋆-multiple `a ⋆ b` does not exceed `N`. The two pooling principles
-therefore become
+Strict order lets the counts recover every row entry: `M_a(N) ≥ b`
+exactly when the `b`-th ⋆-multiple `a ⋆ b` does not exceed `N`. The two
+pooling principles therefore become
 
 $$
 a\star(b+c)\leq a\star b+a\star c
@@ -78,7 +82,7 @@ The rigidity core is separated from the counting bridge in
 [`Rigidity.lean`](PoolingMultiplication/Rigidity.lean), so it can also be
 used as a theorem about families of almost-additive integer-valued rows.
 
-The September 8 revision adds two focused complements:
+The formalization also includes two complements:
 
 - **Individual rows:** a classical one-unit linear bound, with an
   unspecified slope in `[a − 1, a]`. This is an auxiliary observation,
@@ -91,15 +95,14 @@ The September 8 revision adds two focused complements:
 
 ## Coverage and manuscript correspondence
 
-The reference manuscript is the September 8, 2026 focused revision. The
-development covers its main characterization, auxiliary equivalences and
-bounds, arithmetic consequences, and all five independence/structural
-examples. A declaration-level map is maintained in
+The development covers the main characterization, auxiliary equivalences
+and bounds, arithmetic consequences, the mixed-role variant, and all five
+independence/structural examples. A declaration-level map is maintained in
 [`THEOREM_MAP.md`](THEOREM_MAP.md).
 
 | Paper result | Module |
 |---|---|
-| Genuine counts of ⋆-multiples, finiteness, threshold inversion | `Counting` |
+| Genuine counts of ⋆-multiples, finiteness, threshold inversion | `Counting`, `Supplement` |
 | Lemma 3.1: counting inequalities, carry, ⋆-multiples in intervals | `Counting`, `Supplement` |
 | Lemma 3.2: the two threshold inequalities | `Counting` |
 | Remark 3.3: individual-row bounds and normalized slopes | `RowBounds` |
@@ -117,10 +120,11 @@ of factorizations into atoms**, not merely finite computations witnessing
 failed pooling. The ceiling and permutation examples are proved for all
 inputs; their small numerical witnesses are exact kernel-checked proofs.
 
-This repository does not formalize the interpretive motivation, claims of
-novelty, or results from cited papers. The separate exploratory note about
-axioms using only the aggregate factorization count is not part of this
-manuscript and is not claimed as a verified result here.
+The uniform bounded-defect observation in Remark 4.4 is **not included in
+the formalization**. The concluding discussion of aggregate two-factor
+counts is a research direction, not a verified result. Interpretive
+motivation, claims of novelty, and results from cited papers are also
+outside the scope of this formalization.
 
 ## Translation and trust boundaries
 
@@ -128,11 +132,14 @@ manuscript and is not claimed as a verified result here.
   Structural laws and the conclusion quantify only over positive inputs.
   Values on either zero coordinate are irrelevant. Thresholds may be zero.
 - **Actual cardinalities.** `count` uses `Set.ncard` of the full set of
-  positive indices `j` with `a ⋆ j ≤ N`, the ⋆-multiples of `a` not
-  exceeding `N`. There is no unproved count oracle or assumed
-  finite cutoff. Finiteness is proved from positivity and strict order.
-  For the nonmonotone XOR example, a separate finite-image argument proves
-  its count; strict-order lemmas are not applied to it.
+  positive indices `j` satisfying `a ⋆ j ≤ N`. Under strict row order,
+  these outputs are distinct, so this equals the number of ⋆-multiples
+  not exceeding `N`. The equality is proved by `outputCount_eq_count` in
+  [`Supplement.lean`](PoolingMultiplication/Supplement.lean). There is no
+  unproved count oracle or assumed finite cutoff. Finiteness is proved
+  from positivity and strict order. For the nonmonotone XOR example, a
+  separate finite-image argument proves its count; strict-order lemmas
+  are not applied to it.
 - **Arithmetic.** Natural subtraction is truncated. Bounds are often stated
   without subtraction, and the traditional positive-integer forms are
   recovered explicitly. Ceiling and half-integer formulas are implemented
@@ -150,6 +157,10 @@ between these statements and the prose manuscript remains a human-readable
 translation, documented in the theorem map.
 
 ## Build and audit
+
+The development uses Lean **4.24.0** and mathlib commit
+`f897ebcf72cd16f89ab4577d0c826cd14afaafc7`; all transitive dependency
+versions are pinned in [`lake-manifest.json`](lake-manifest.json).
 
 Install [elan](https://github.com/leanprover/elan), then run:
 
@@ -171,8 +182,8 @@ the project namespace**, and fails on anything outside `propext`,
 foundations; there are no project-specific axioms or native-computation
 trust extensions.
 
-The completed local build and audit are recorded in
-[`VERIFICATION.md`](VERIFICATION.md).
+The local build and audit for version 1.1.0 (September 8, 2026) are
+recorded in [`VERIFICATION.md`](VERIFICATION.md).
 
 Automated CI is installed at
 [`.github/workflows/lean_action.yml`](.github/workflows/lean_action.yml).
