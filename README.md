@@ -12,7 +12,7 @@ For an operation on the positive integers, fix a base `a`. The row entries
 threshold `N`:
 
 $$
-M_a(N)=\#\{j\geq1:a\star j\leq N\}.
+M_a(N)=\\#\lbrace j\geq1:a\star j\leq N\rbrace.
 $$
 
 Two principles describe what happens when thresholds are pooled:
@@ -34,7 +34,7 @@ Suppose `1` is a right identity and each row is strictly increasing.
 If the operation is **commutative or associative**, then
 
 $$
-\mathrm{PS}\ \&\ \mathrm{PI}
+\mathrm{PS}\ \land\ \mathrm{PI}
 \quad\Longleftrightarrow\quad
 a\star b=ab\quad\text{for all }a,b\geq1.
 $$
