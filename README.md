@@ -11,9 +11,9 @@ For an operation on the positive integers, fix a base `a`. The row entries
 `a ⋆ j` are the **⋆-multiples of `a`**; count those not exceeding the
 threshold `N`:
 
-\[
+$$
 M_a(N)=\#\{j\geq1:a\star j\leq N\}.
-\]
+$$
 
 Two principles describe what happens when thresholds are pooled:
 
@@ -33,11 +33,11 @@ factorizations or a set-theoretic union of the sets of ⋆-multiples.
 Suppose `1` is a right identity and each row is strictly increasing.
 If the operation is **commutative or associative**, then
 
-\[
+$$
 \mathrm{PS}\ \&\ \mathrm{PI}
 \quad\Longleftrightarrow\quad
 a\star b=ab\quad\text{for all }a,b\geq1.
-\]
+$$
 
 Associativity and commutativity need not be assumed together. Factoriality
 is a **conclusion**, not a hypothesis. The theorem identifies multiplication
@@ -63,10 +63,10 @@ Strict order makes counts invertible: `M_a(N) ≥ b` exactly when the
 `b`-th ⋆-multiple `a ⋆ b` does not exceed `N`. The two pooling principles
 therefore become
 
-\[
+$$
 a\star(b+c)\leq a\star b+a\star c
 \leq a\star(b+c)+1.
-\]
+$$
 
 Finite induction gives
 `(a − 1)b + 1 ≤ a ⋆ b ≤ ab`. If one output were smaller than `ab`,
