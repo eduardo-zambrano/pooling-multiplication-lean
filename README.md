@@ -7,24 +7,26 @@ dependency versions are pinned in [`lake-manifest.json`](lake-manifest.json).
 
 ## The question
 
-For an operation on the positive integers, fix a requirement `a` and count
-the partners that fit under capacity `N`:
+For an operation on the positive integers, fix a base `a`. The row entries
+`a ⋆ j` are the **⋆-multiples of `a`**; count those not exceeding the
+threshold `N`:
 
 \[
-M_a(N)=\#\{b\geq1:a\star b\leq N\}.
+M_a(N)=\#\{j\geq1:a\star j\leq N\}.
 \]
 
-Two principles describe what happens when capacities are pooled:
+Two principles describe what happens when thresholds are pooled:
 
-- **Sufficiency is preserved (PS).** If `N` accommodates `b` opportunities
-  and `L` accommodates `c`, then `N + L` accommodates `b + c`.
-- **Insufficiency is preserved (PI).** If `N` cannot accommodate `b`
-  opportunities and `L` cannot accommodate `c`, then `N + L` cannot
-  accommodate `b + c`.
+- **Sufficiency is preserved (PS).** If `N` contains at least `b`
+  ⋆-multiples of `a` and `L` contains at least `c`, then `N + L` contains
+  at least `b + c`.
+- **Insufficiency is preserved (PI).** If `N` contains fewer than `b`
+  ⋆-multiples of `a` and `L` contains fewer than `c`, then `N + L`
+  contains fewer than `b + c`.
 
 These axioms prescribe neither a multiplication table nor a target count.
-They concern numbers of feasible partners, not prime factorizations or a
-set-theoretic union of feasible sets.
+They concern numbers of ⋆-multiples below a threshold, not prime
+factorizations or a set-theoretic union of the sets of ⋆-multiples.
 
 ## The theorem
 
@@ -40,7 +42,7 @@ a\star b=ab\quad\text{for all }a,b\geq1.
 Associativity and commutativity need not be assumed together. Factoriality
 is a **conclusion**, not a hypothesis. The theorem identifies multiplication
 on the given numerical labels, not merely up to abstract isomorphism.
-Ordinary addition of capacities and requested counts is part of the setup.
+Ordinary addition of thresholds and target counts is part of the setup.
 
 The main Lean declaration is
 [`pooling_characterization`](PoolingMultiplication/Main.lean):
@@ -57,8 +59,9 @@ additional mathematical assumption. See the translation notes below.
 
 ## Why the proof works
 
-Strict order makes counts invertible: `M_a(N) ≥ b` exactly when
-`a ⋆ b ≤ N`. The two pooling principles therefore become
+Strict order makes counts invertible: `M_a(N) ≥ b` exactly when the
+`b`-th ⋆-multiple `a ⋆ b` does not exceed `N`. The two pooling principles
+therefore become
 
 \[
 a\star(b+c)\leq a\star b+a\star c
@@ -96,14 +99,14 @@ examples. A declaration-level map is maintained in
 
 | Paper result | Module |
 |---|---|
-| Genuine partner counts, finiteness, threshold inversion | `Counting` |
-| Lemma 3.1: counting inequalities, carry, row-output intervals | `Counting`, `Supplement` |
+| Genuine counts of ⋆-multiples, finiteness, threshold inversion | `Counting` |
+| Lemma 3.1: counting inequalities, carry, ⋆-multiples in intervals | `Counting`, `Supplement` |
 | Lemma 3.2: the two threshold inequalities | `Counting` |
 | Remark 3.3: individual-row bounds and normalized slopes | `RowBounds` |
 | Lemma 4.1: initial bounds and replication | `Rigidity` |
 | Theorem 2.1: commutative and associative characterizations | `Main` |
 | Corollary 4.2: factoriality, floor count, divisor count | `Arithmetic`, `Consequences` |
-| Proposition 4.3: mixed-argument counting characterization | `Mixed` |
+| Proposition 4.3: pooling with the factor roles exchanged | `Mixed` |
 | Example 5.1: Peano operation, PS without PI | `Examples.Peano` |
 | Example 5.2: odd-integer operation, PI without PS | `Examples.Odd` |
 | Example 5.3: ceiling rows without compatibility | `Examples.Ceiling` |
@@ -114,7 +117,7 @@ of factorizations into atoms**, not merely finite computations witnessing
 failed pooling. The ceiling and permutation examples are proved for all
 inputs; their small numerical witnesses are exact kernel-checked proofs.
 
-This repository does not formalize the economic motivation, claims of
+This repository does not formalize the interpretive motivation, claims of
 novelty, or results from cited papers. The separate exploratory note about
 axioms using only the aggregate factorization count is not part of this
 manuscript and is not claimed as a verified result here.
@@ -123,9 +126,10 @@ manuscript and is not claimed as a verified result here.
 
 - **Positive carrier.** `Operation` is implemented as `ℕ → ℕ → ℕ`.
   Structural laws and the conclusion quantify only over positive inputs.
-  Values on either zero coordinate are irrelevant. Capacities may be zero.
+  Values on either zero coordinate are irrelevant. Thresholds may be zero.
 - **Actual cardinalities.** `count` uses `Set.ncard` of the full set of
-  positive feasible partners. There is no unproved count oracle or assumed
+  positive indices `j` with `a ⋆ j ≤ N`, the ⋆-multiples of `a` not
+  exceeding `N`. There is no unproved count oracle or assumed
   finite cutoff. Finiteness is proved from positivity and strict order.
   For the nonmonotone XOR example, a separate finite-image argument proves
   its count; strict-order lemmas are not applied to it.
