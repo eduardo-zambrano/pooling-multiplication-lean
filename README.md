@@ -120,9 +120,8 @@ of factorizations into atoms**, not merely finite computations witnessing
 failed pooling. The ceiling and permutation examples are proved for all
 inputs; their small numerical witnesses are exact kernel-checked proofs.
 
-The uniform bounded-defect observation in Remark 4.4 is **not included in
-the formalization**. The concluding discussion of aggregate two-factor
-counts is a research direction, not a verified result. Interpretive
+The concluding discussion of aggregate two-factor counts is a research
+direction, not a verified result. Interpretive
 motivation, claims of novelty, and results from cited papers are also
 outside the scope of this formalization.
 
