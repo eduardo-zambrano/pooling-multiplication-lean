@@ -17,15 +17,20 @@ Under strict row order, different indices give distinct ⋆-multiples, so
 this is also the number of ⋆-multiples not exceeding `N`.
 
 Two principles describe what happens when thresholds are pooled. Here
-`N,L` are nonnegative integer thresholds, and `b,c` are positive integer
+`N,L` are nonnegative integer thresholds, and `u,v` are positive integer
 target counts:
 
-- **Sufficiency is preserved (PS).** If `N` contains at least `b`
-  ⋆-multiples of `a` and `L` contains at least `c`, then `N + L` contains
-  at least `b + c`.
-- **Insufficiency is preserved (PI).** If `N` contains fewer than `b`
-  ⋆-multiples of `a` and `L` contains fewer than `c`, then `N + L`
-  contains fewer than `b + c`.
+- **Pooling preserves sufficiency (PS).** If two thresholds separately
+  contain two numbers of ⋆-multiples of the same `a`, their combined
+  threshold contains the combined number:
+
+  $$
+  \boxed{M_a(N+L)\geq M_a(N)+M_a(L)}.
+  $$
+
+- **Pooling preserves insufficiency (PI).** If `N` contains fewer than `u`
+  ⋆-multiples of `a` and `L` contains fewer than `v`, then `N + L`
+  contains fewer than `u + v`.
 
 These axioms prescribe neither a multiplication table nor a target
 counting frequency. They concern numbers of ⋆-multiples not exceeding a
@@ -120,11 +125,6 @@ of factorizations into atoms**, not merely finite computations witnessing
 failed pooling. The ceiling and permutation examples are proved for all
 inputs; their small numerical witnesses are exact kernel-checked proofs.
 
-The concluding discussion of aggregate two-factor counts is a research
-direction, not a verified result. Interpretive
-motivation, claims of novelty, and results from cited papers are also
-outside the scope of this formalization.
-
 ## Translation and trust boundaries
 
 - **Positive carrier.** `Operation` is implemented as `ℕ → ℕ → ℕ`.
@@ -150,10 +150,6 @@ outside the scope of this formalization.
 - **Divisor count.** Ordered pairs are counted, including the identity in
   either position. The divisor count is `Nat.divisors.card`, obtained by an
   actual bijection, not defined to be the factorization count.
-
-Lean checks the formal statements and their proofs. The correspondence
-between these statements and the prose manuscript remains a human-readable
-translation, documented in the theorem map.
 
 ## Build and audit
 
@@ -203,5 +199,4 @@ are maintained separately and are not licensed by this repository.
 
 OpenAI's Codex assisted with formalization and documentation. The manuscript
 revision also incorporates review and proof-exploration suggestions from
-Anthropic's Claude. Proof
-acceptance is by Lean's kernel, not by an AI-generated correctness claim.
+Anthropic's Claude.
