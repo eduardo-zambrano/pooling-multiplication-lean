@@ -20,17 +20,17 @@ Two principles describe what happens when thresholds are pooled. Here
 `N,L` are nonnegative integer thresholds, and `u,v` are positive integer
 target counts:
 
-- **Pooling preserves sufficiency (PS).** If two thresholds separately
-  contain two numbers of ⋆-multiples of the same `a`, their combined
-  threshold contains the combined number:
+**Pooling preserves sufficiency (PS).** If two thresholds separately
+contain two numbers of ⋆-multiples of the same `a`, their combined
+threshold contains the combined number:
 
-  $$
-  \boxed{M_a(N+L)\geq M_a(N)+M_a(L)}.
-  $$
+$$
+\boxed{M_a(N+L)\geq M_a(N)+M_a(L)}.
+$$
 
-- **Pooling preserves insufficiency (PI).** If `N` contains fewer than `u`
-  ⋆-multiples of `a` and `L` contains fewer than `v`, then `N + L`
-  contains fewer than `u + v`.
+**Pooling preserves insufficiency (PI).** If `N` contains fewer than `u`
+⋆-multiples of `a` and `L` contains fewer than `v`, then `N + L`
+contains fewer than `u + v`.
 
 These axioms prescribe neither a multiplication table nor a target
 counting frequency. They concern numbers of ⋆-multiples not exceeding a
